@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuro Radiology Reporting Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .preview-pane { white-space: pre-wrap; font-family: 'Courier New', Courier, monospace; }
+        .hidden { display: none; }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+    </style>
+</head>
+<body class="bg-gray-100 text-slate-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Landing Page View -->
+    <div id="landingView" class="h-full flex flex-col items-center justify-center p-6 bg-slate-50">
+        <div class="max-w-[90rem] w-full bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-full">
+            <div class="bg-slate-800 p-6 text-center flex-none">
+                <h1 class="text-3xl font-bold text-white mb-1">Neuro Radiology Reporting Suite</h1>
+                <p class="text-slate-300 text-sm">Select a template to begin reporting</p>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1">
+                
+                <!-- Category: Brain & Head -->
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Brain & Head</h2>
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
+                    <!-- MRI Brain+ -->
+                    <button onclick="loadTemplate('mri_plus')" class="group p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-lg hover:bg-blue-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-blue-100 text-blue-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI Brain+</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Tumor, infection, mets.</p>
+                    </button>
+
+                    <!-- MRI Brain- -->
+                    <button onclick="loadTemplate('mri_minus')" class="group p-4 border border-gray-200 rounded-lg hover:border-sky-500 hover:shadow-lg hover:bg-sky-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-sky-100 text-sky-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI Brain-</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Headache, screening.</p>
+                    </button>
+
+                    <!-- MRI/MRA Combo -->
+                    <button onclick="loadTemplate('mri_mra_minus')" class="group p-4 border border-gray-200 rounded-lg hover:border-purple-500 hover:shadow-lg hover:bg-purple-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-purple-100 text-purple-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI/MRA head-</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Stroke, vascular screening.</p>
+                    </button>
+
+                    <!-- IAC -->
+                    <button onclick="loadTemplate('iac_plus')" class="group p-4 border border-gray-200 rounded-lg hover:border-pink-500 hover:shadow-lg hover:bg-pink-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-pink-100 text-pink-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI IAC+</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Tinnitus, hearing loss.</p>
+                    </button>
+
+                    <!-- CT Head -->
+                    <button onclick="loadTemplate('ct')" class="group p-4 border border-gray-200 rounded-lg hover:border-emerald-500 hover:shadow-lg hover:bg-emerald-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-emerald-100 text-emerald-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">CT Head</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Trauma, AMS, stroke.</p>
+                    </button>
+
+                    <!-- MRA Head -->
+                    <button onclick="loadTemplate('mra')" class="group p-4 border border-gray-200 rounded-lg hover:border-indigo-500 hover:shadow-lg hover:bg-indigo-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-indigo-100 text-indigo-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRA Head</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Aneurysm, CoW.</p>
+                    </button>
+                </div>
+
+                <!-- Category: Spine -->
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Spine</h2>
+                <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    
+                    <!-- Lumbar- -->
+                    <button onclick="loadTemplate('lumbar_minus')" class="group p-4 border border-gray-200 rounded-lg hover:border-orange-500 hover:shadow-lg hover:bg-orange-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-orange-100 text-orange-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI L-Spine-</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Radiculopathy, pain.</p>
+                    </button>
+
+                    <!-- Thoracic- -->
+                    <button onclick="loadTemplate('thoracic_minus')" class="group p-4 border border-gray-200 rounded-lg hover:border-amber-500 hover:shadow-lg hover:bg-amber-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-amber-100 text-amber-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI T-Spine-</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Pain, fracture, screening.</p>
+                    </button>
+
+                    <!-- Total Spine+ (Gen) -->
+                    <button onclick="loadTemplate('total_plus')" class="group p-4 border border-gray-200 rounded-lg hover:border-teal-500 hover:shadow-lg hover:bg-teal-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-teal-100 text-teal-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI Total Spine+ (core)</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">C+T+L. General screening.</p>
+                    </button>
+
+                    <!-- Total Spine+ (CSF) -->
+                    <button onclick="loadTemplate('total_csf')" class="group p-4 border border-gray-200 rounded-lg hover:border-cyan-500 hover:shadow-lg hover:bg-cyan-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-cyan-100 text-cyan-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI Total Spine+ (CSF Leak)</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Hypotension, leak protocol.</p>
+                    </button>
+
+                    <!-- Total Spine+ (Mets) -->
+                    <button onclick="loadTemplate('total_mets')" class="group p-4 border border-gray-200 rounded-lg hover:border-rose-500 hover:shadow-lg hover:bg-rose-50 transition text-left flex flex-col h-full">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-rose-100 text-rose-700 p-1.5 rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></span>
+                            <h3 class="font-bold text-gray-800 text-sm">MRI Total Spine+ (Drop mets)</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs">Drop metastases, leptomeningeal.</p>
+                    </button>
+
+                </div>
+            </div>
+            <div class="bg-gray-50 p-3 text-center text-xs text-gray-500 border-t flex-none">
+                Interactive Reporting Tool v2.0
+            </div>
+        </div>
+    </div>
+
+    <!-- Application View (Hidden by default) -->
+    <div id="appView" class="hidden h-full flex flex-col">
+        
+        <!-- Header -->
+        <header class="bg-slate-800 text-white p-4 shadow-md flex-none z-10 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <button onclick="showLanding()" class="text-slate-300 hover:text-white flex items-center gap-1 text-sm font-medium">
+                    &larr; Home
+                </button>
+                <div class="h-6 w-px bg-slate-600"></div>
+                <div>
+                    <h1 id="templateTitle" class="text-xl font-bold">Template Name</h1>
+                    <p class="text-xs text-slate-400">Interactive Reporting Template</p>
+                </div>
+            </div>
+            <button onclick="resetForm()" class="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded transition">Reset Defaults</button>
+        </header>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+            
+            <!-- Left Panel: Controls -->
+            <div id="controlsContainer" class="w-full md:w-1/2 lg:w-5/12 bg-white border-r border-gray-200 overflow-y-auto p-6 pb-20">
+                <!-- Dynamic Inputs will be injected here -->
+            </div>
+
+            <!-- Right Panel: Preview -->
+            <div class="w-full md:w-1/2 lg:w-7/12 bg-gray-100 flex flex-col h-full">
+                <div class="bg-gray-200 px-6 py-3 border-b border-gray-300 flex justify-between items-center">
+                    <h2 class="font-bold text-gray-700">Report Preview</h2>
+                    <button onclick="copyToClipboard()" id="copyBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium shadow transition flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        Copy Report
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto p-8">
+                    <div id="reportOutput" class="bg-white shadow-lg p-8 min-h-[600px] text-gray-800 text-base leading-relaxed preview-pane border border-gray-300"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-2 rounded shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        Report copied to clipboard!
+    </div>
+
+    <script>
+        // --- DATA CONSTANTS ---
+        const BRAIN_PARENCHYMA_OPTS = [
+            { label: "Normal", value: "No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "Mild Microvascular", value: "Mild chronic microvascular ischemic changes. No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "Moderate Microvascular", value: "Moderate chronic microvascular ischemic changes. No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "Severe Microvascular", value: "Severe chronic microvascular ischemic disease. No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "Atrophy", value: "Generalized cerebral volume loss. No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "Microvascular & Atrophy", value: "Generalized cerebral volume loss and chronic microvascular ischemic changes. No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "Nonspecific T2 WM", value: "Few scattered nonspecific T2/FLAIR hyperintensities in the cerebral subcortical white matter. No acute infarct, acute intracranial hemorrhage, or mass effect." },
+            { label: "MS", value: "Multiple white matter lesions consistent with multiple sclerosis. Some lesions with T1 hypointensity, suggesting chronicity. No restricted diffusion. No new T2 or FLAIR white matter lesions. No acute infarct, intracranial hemorrhage, or mass effect." },
+            { label: "Seizure", value: "Normal mesial temporal structures, including the hippocampi, amygdalae, and parahippocampal gyri. Symmetric fornices and mamillary bodies. No cortical malformation, heterotopia, or remote brain injury. No acute infarct, intracranial hemorrhage, or mass effect." }
+        ];
+
+        const VENTRICLES_OPTS = [
+            { label: "Normal", value: "No hydrocephalus, midline shift, or herniation. The basal cisterns are patent. No abnormal extra-axial fluid collection." },
+            { label: "Atrophy", value: "Ventricles and sulci are prominent consistent with cerebral volume loss. No hydrocephalus, midline shift, or herniation. No abnormal extra-axial fluid collection." }
+        ];
+
+        const ORBITS_OPTS = [
+            { label: "Normal", value: "The orbital contents are unremarkable." },
+            { label: "Bilateral Cataracts", value: "Bilateral intraocular lens replacements." },
+            { label: "Right Cataract", value: "Right intraocular lens replacement." },
+            { label: "Left Cataract", value: "Left intraocular lens replacement." }
+        ];
+
+        const EXTRACRANIAL_OPTS = [
+            { label: "Normal", value: "No calvarial or skull base abnormality. Paranasal sinuses and mastoid air cells are clear." },
+            { label: "Mild Sinus Disease", value: "Scattered mucosal changes in the paranasal sinuses without air-fluid level. Mastoid air cells are clear." }
+        ];
+
+        const SPINE_LEVELS_NORMAL = "No high-grade spinal canal or neuroforaminal stenosis at any spinal level.";
+        const SPINE_LEVELS_MILD = "Mild multilevel degenerative changes without high-grade spinal canal or foraminal stenosis at any spinal level.";
+        
+        const CERVICAL_DETAILED = `CERVICAL SPINE:\n\nC2-3: there is no spinal canal or foraminal stenosis.\n\nC3-4: there is no spinal canal or foraminal stenosis.\n\nC4-5: there is no spinal canal or foraminal stenosis.\n\nC5-6: there is no spinal canal or foraminal stenosis.\n\nC6-7: there is no spinal canal or foraminal stenosis.\n\nC7-T1: there is no spinal canal or foraminal stenosis.`;
+        const THORACIC_DETAILED = `THORACIC SPINE:\n\nNo spinal canal or foraminal stenosis at any thoracic level.`;
+        const LUMBAR_DETAILED = `LUMBAR SPINE:\n\nL1-2: there is no spinal canal or foraminal stenosis.\n\nL2-3: there is no spinal canal or foraminal stenosis.\n\nL3-4: there is no spinal canal or foraminal stenosis.\n\nL4-5: there is no spinal canal or foraminal stenosis.\n\nL5-S1: there is no spinal canal or foraminal stenosis.`;
+
+        // --- TEMPLATES ---
+
+        const mriPlusData = {
+            id: 'mri_plus',
+            title: 'Neuro MRI Brain+',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Headache, Rule out mass' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available, or MRI Brain dated...' },
+                { id: 'contrastAgent', label: 'Contrast Agent', type: 'text', section: 'Technique & Contrast', placeholder: 'e.g., Gadavist' },
+                { id: 'contrastQty', label: 'Quantity (ml)', type: 'number', section: 'Technique & Contrast', placeholder: 'e.g., 10' },
+                { id: 'motion', label: 'Motion / Quality', type: 'text', section: 'Technique & Contrast', placeholder: "Usually empty, or 'Motion degraded images'" },
+                { id: 'brainParenchyma', label: 'Brain Parenchyma', type: 'select', section: 'Findings', options: BRAIN_PARENCHYMA_OPTS },
+                { id: 'ventricles', label: 'Ventricles & Extra-axial Spaces', type: 'select', section: 'Findings', options: VENTRICLES_OPTS },
+                { id: 'enhancement', label: 'Enhancement', type: 'textarea', section: 'Findings', defaultValue: "No abnormal parenchymal or leptomeningeal enhancement." },
+                { id: 'orbits', label: 'Orbits', type: 'select', section: 'Findings', options: ORBITS_OPTS },
+                { id: 'extracranial', label: 'Extracranial Structures', type: 'select', section: 'Findings', options: EXTRACRANIAL_OPTS },
+                { id: 'impression', label: 'Final Impression', type: 'select', section: 'Impression', options: [
+                    { label: "Normal", value: "Normal MRI of the brain." },
+                    { label: "No Acute Findings", value: "No acute intracranial findings." },
+                    { label: "MS", value: "White matter lesions compatible with given clinical history of multiple sclerosis.\nNew T2 lesions: None\nNew enhancing lesions: None" },
+                    { label: "No Metastasis", value: "No evidence of intracranial metastatic disease." },
+                    { label: "Seizure", value: "No structural or epileptogenic abnormality." }
+                ]}
+            ],
+            generateFn: (vals) => {
+                let tech = "Multi-planar multi-sequential MR imaging of the brain was performed before and after the intravenous administration of contrast.";
+                if (vals.contrastQty || vals.contrastAgent) {
+                    tech += ` ${highlight(vals.contrastQty || "__")} ml of ${highlight(vals.contrastAgent || "__")} was administered (the balance of single use vial(s) has/have been discarded).`;
+                } else {
+                    tech += " [Contrast information missing].";
+                }
+                if (vals.motion) tech += ` ${highlight(vals.motion)}.`;
+
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: ${tech}
+
+COMPARISON: ${highlight(vals.comparison || "None.")}
+
+FINDINGS:
+
+BRAIN PARENCHYMA: ${highlight(vals.brainParenchyma)}
+
+VENTRICLES/EXTRA-AXIAL SPACES: ${highlight(vals.ventricles)}
+
+ENHANCEMENT: ${highlight(vals.enhancement)}
+
+ORBITS: ${highlight(vals.orbits)}
+
+EXTRACRANIAL STRUCTURES: ${highlight(vals.extracranial)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        const mriMinusData = {
+            id: 'mri_minus',
+            title: 'Neuro MRI Brain- (No Contrast)',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Headache' },
+                { id: 'comparison', label: 'Comparison', type: 'select_editable', section: 'Clinical Information', options: [
+                    { label: "None Available", value: "None available." },
+                    { label: "Auto Compare", value: "Comparison made to prior studies." }
+                ], placeholder: "e.g., None available" },
+                { id: 'brainParenchyma', label: 'Brain Parenchyma', type: 'select', section: 'Findings', options: [
+                    ...BRAIN_PARENCHYMA_OPTS,
+                    { label: "IACs", value: "No acute infarct, acute intracranial hemorrhage, or mass effect. IACs symmetric without mass. CN VII/VIII normal. Inner ear structures unremarkable."}
+                ]},
+                { id: 'ventricles', label: 'Ventricles & Extra-axial Spaces', type: 'select', section: 'Findings', options: VENTRICLES_OPTS },
+                { id: 'orbits', label: 'Orbits', type: 'select', section: 'Findings', options: ORBITS_OPTS },
+                { id: 'extracranial', label: 'Extracranial Structures', type: 'select', section: 'Findings', options: EXTRACRANIAL_OPTS },
+                { id: 'impression', label: 'Final Impression', type: 'select', section: 'Impression', options: [
+                    { label: "Normal", value: "Normal MRI of the brain." },
+                    { label: "No Acute Findings", value: "No acute intracranial findings." },
+                    { label: "MS", value: "White matter lesions compatible with given clinical history of multiple sclerosis.\nNew T2 lesions: None" },
+                    { label: "Seizure", value: "No structural or epileptogenic abnormality." },
+                    { label: "IACs", value: "Normal MRI of the brain and IACs." }
+                ]}
+            ],
+            generateFn: (vals) => {
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: Multiplanar, multisequence MRI of the brain was performed without intravenous contrast.
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+BRAIN PARENCHYMA: ${highlight(vals.brainParenchyma)}
+
+VENTRICLES/EXTRA-AXIAL SPACES: ${highlight(vals.ventricles)}
+
+ORBITS: ${highlight(vals.orbits)}
+
+EXTRACRANIAL STRUCTURES: ${highlight(vals.extracranial)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        const mriMraMinusData = {
+            id: 'mri_mra_minus',
+            title: 'MRI/MRA head-',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Headache' },
+                { id: 'comparison', label: 'Comparison', type: 'select_editable', section: 'Clinical Information', options: [
+                    { label: "None Available", value: "None available." },
+                    { label: "Auto Compare", value: "Comparison made to prior studies." }
+                ], placeholder: "e.g., None available" },
+                // MRI
+                { id: 'brainParenchyma', label: 'Brain Parenchyma', type: 'select', section: 'MRI Findings', options: BRAIN_PARENCHYMA_OPTS },
+                { id: 'ventricles', label: 'Ventricles & Extra-axial Spaces', type: 'select', section: 'MRI Findings', options: VENTRICLES_OPTS },
+                { id: 'orbits', label: 'Orbits', type: 'select', section: 'MRI Findings', options: ORBITS_OPTS },
+                { id: 'extracranial', label: 'Extracranial Structures', type: 'select', section: 'MRI Findings', options: EXTRACRANIAL_OPTS },
+                // MRA
+                { id: 'anterior', label: 'Anterior Circulation', type: 'textarea', section: 'MRA Findings', defaultValue: "No stenosis, occlusion, or aneurysm." },
+                { id: 'posterior', label: 'Posterior Circulation', type: 'select', section: 'MRA Findings', options: [
+                    { label: "Normal", value: "No stenosis, occlusion, or aneurysm." },
+                    { label: "Hypoplastic Right Vert", value: "No stenosis, occlusion, or aneurysm. Hypoplastic right vertebral artery." },
+                    { label: "Hypoplastic Left Vert", value: "No stenosis, occlusion, or aneurysm. Hypoplastic left vertebral artery." }
+                ]},
+                { id: 'cow', label: 'Circle of Willis', type: 'select', section: 'MRA Findings', options: [
+                    { label: "Complete", value: "Complete" },
+                    { label: "Dominant Right A1", value: "Dominant right A1 with hypoplastic contralateral A1." },
+                    { label: "Dominant Left A1", value: "Dominant left A1 with hypoplastic contralateral A1." },
+                    { label: "Fetal Right PCA", value: "Fetal disposition of the right PCA." },
+                    { label: "Fetal Left PCA", value: "Fetal disposition of the left PCA." },
+                    { label: "Fetal Bilateral PCA", value: "Fetal disposition of the bilateral PCA's" }
+                ]},
+                { id: 'malformation', label: 'Vascular Malformation', type: 'textarea', section: 'MRA Findings', defaultValue: "None." },
+                // Impressions
+                { id: 'impression', label: 'MRI Impression', type: 'textarea', section: 'Impression', defaultValue: "Normal MRI of the brain." },
+                { id: 'mraImpression', label: 'MRA Impression', type: 'textarea', section: 'Impression', defaultValue: "Normal MRA of the head." }
+            ],
+            generateFn: (vals) => {
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: MRI brain and MRA head were performed without intravenous contrast.
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+MRI BRAIN:
+
+BRAIN PARENCHYMA: ${highlight(vals.brainParenchyma)}
+
+VENTRICLES/EXTRA-AXIAL SPACES: ${highlight(vals.ventricles)}
+
+ORBITS: ${highlight(vals.orbits)}
+
+EXTRACRANIAL STRUCTURES: ${highlight(vals.extracranial)}
+
+MRA HEAD:
+
+ANTERIOR CIRCULATION: ${highlight(vals.anterior)}
+
+POSTERIOR CIRCULATION: ${highlight(vals.posterior)}
+
+CIRCLE OF WILLIS: ${highlight(vals.cow)}
+
+VASCULAR MALFORMATION: ${highlight(vals.malformation)}
+
+IMPRESSION: 
+${highlight(vals.impression)}
+
+${highlight(vals.mraImpression)}`;
+            }
+        };
+
+        const iacPlusData = {
+            id: 'iac_plus',
+            title: 'Neuro MRI IAC+',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Tinnitus, Hearing loss' },
+                { id: 'contrastAgent', label: 'Contrast Agent', type: 'text', section: 'Technique & Contrast', placeholder: 'e.g., Gadavist' },
+                { id: 'contrastQty', label: 'Quantity (ml)', type: 'number', section: 'Technique & Contrast', placeholder: 'e.g., 10' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                
+                { id: 'indicationInsert', label: 'Select Indication-Specific Findings', type: 'select', section: 'Findings', options: [
+                    { label: "Brief Normal", value: "IACs symmetric without mass or abnormal enhancement. CN VII/VIII normal. Inner ear structures unremarkable." },
+                    { label: "Hearing Loss / Tinnitus", value: "No CPA mass. No abnormal enhancement along CN VII or VIII.\nIACs: [Symmetric / Asymmetric]. No canal expansion.\nCochleae: [Normal signal / Abnormal - specify].\nVestibules/SCCs: [Normal / Abnormal]." },
+                    { label: "Pulsatile Tinnitus", value: "No CPA mass. No vestibular schwannoma.\n\nVASCULAR EVALUATION:\nJugular bulbs: [Normal / High-riding R/L / Dehiscent R/L]\nSigmoid sinuses: [Normal / Diverticulum R/L]\nTransverse sinuses: [Symmetric / Dominant R/L / Stenosis]\nDural venous sinuses: [Patent / Thrombosis]\nPetrous carotids: [Normal / Aberrant / Dehiscent]\nGlomus tumor: [None / Present - location, size]" },
+                    { label: "Facial Nerve Palsy", value: "No CPA mass.\n\nFACIAL NERVE (CN VII) - [RIGHT/LEFT]:\nCisternal segment:      [Normal / Enhancement]\nCanalicular segment:    [Normal / Enhancement]\nLabyrinthine segment:   [Normal / Enhancement]\nGeniculate ganglion:    [Normal / Enhancement]\nTympanic segment:       [Normal / Enhancement]\nMastoid segment:        [Normal / Enhancement]\nParotid segment:        [Normal / Mass]\n\nPattern: [No abnormal enhancement / Enhancement of X segments c/w Bell's palsy]\n\nCN VIII: Normal." },
+                    { label: "Trigeminal Neuralgia", value: "No CPA mass. CN VII and VIII normal.\n\nTRIGEMINAL NERVE (CN V):\nCisternal segment: [Normal / Atrophy R/L]\nMeckel's cave: [Normal / Asymmetric / Mass]\nCavernous sinus: [Normal / Abnormal]\n\nNEUROVASCULAR CONTACT - [RIGHT/LEFT] CN V:\nContact: [None / Present]\nVessel: [SCA / AICA / Basilar / Venous]\nDegree: [Contact only / Displacement / Distortion of nerve]" },
+                    { label: "Schwannoma Follow-up", value: "KNOWN VESTIBULAR SCHWANNOMA - [RIGHT/LEFT]:\nLocation: [Intracanalicular / CPA with IAC extension / CPA only]\nSize: [X x Y x Z mm] (prior: [X x Y x Z mm] on [DATE])\nChange: [Stable / Growth Xmm / Decreased]\nEnhancement: [Homogeneous / Heterogeneous / Cystic]\nMass effect: [None / Brainstem contact / Compression]\nHydrocephalus: [None / Present]\n\nContralateral IAC: [Normal / Abnormal - ?NF2]" }
+                ]},
+
+                { id: 'brainParenchyma', label: 'Brain Parenchyma', type: 'select', section: 'Findings', options: BRAIN_PARENCHYMA_OPTS },
+                { id: 'ventricles', label: 'Ventricles & Extra-axial Spaces', type: 'select', section: 'Findings', options: VENTRICLES_OPTS },
+                { id: 'enhancement', label: 'Enhancement', type: 'textarea', section: 'Findings', defaultValue: "No abnormal parenchymal or leptomeningeal enhancement." },
+                { id: 'orbits', label: 'Orbits', type: 'select', section: 'Findings', options: ORBITS_OPTS },
+                { id: 'extracranial', label: 'Extracranial Structures', type: 'select', section: 'Findings', options: EXTRACRANIAL_OPTS },
+                { id: 'impression', label: 'Final Impression', type: 'select', section: 'Impression', options: [
+                    { label: "Brief Normal", value: "Normal MRI of the brain and internal auditory canals." },
+                    { label: "Hearing Loss/Tinnitus", value: "No retrocochlear mass. No vestibular schwannoma." },
+                    { label: "Pulsatile Tinnitus", value: "No CPA mass. No vascular etiology for pulsatile tinnitus identified." },
+                    { label: "Facial Nerve Palsy", value: "No abnormal CN VII enhancement. No CPA mass." },
+                    { label: "Trigeminal Neuralgia", value: "No neurovascular compression of CN V. No CPA mass." }
+                ]}
+            ],
+            generateFn: (vals) => {
+                let tech = "Multi-planar multi-sequential MR imaging of the brain was performed before and after the intravenous administration of contrast.";
+                if (vals.contrastQty || vals.contrastAgent) {
+                    tech += ` ${highlight(vals.contrastQty || "__")} ml of ${highlight(vals.contrastAgent || "__")} was administered (the balance of single use vial(s) has/have been discarded).`;
+                } else {
+                    tech += " [Contrast information missing].";
+                }
+
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: ${tech}
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+INTERNAL AUDITORY CANALS AND CPA:
+${highlight(vals.indicationInsert)}
+
+BRAIN PARENCHYMA: ${highlight(vals.brainParenchyma)}
+
+VENTRICLES/EXTRA-AXIAL SPACES: ${highlight(vals.ventricles)}
+
+ENHANCEMENT: ${highlight(vals.enhancement)}
+
+ORBITS: ${highlight(vals.orbits)}
+
+EXTRACRANIAL STRUCTURES: ${highlight(vals.extracranial)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        const ctData = {
+            id: 'ct',
+            title: 'Neuro CT Head',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'select_editable', section: 'Clinical Information', options: [
+                    { label: "Headaches", value: "Headaches" },
+                    { label: "Dizziness", value: "Dizziness" },
+                    { label: "Altered Mental Status", value: "Altered mental status" },
+                    { label: "Seizure", value: "Seizure" },
+                    { label: "TIA", value: "TIA" }
+                ], placeholder: "Select or type history..." },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'brainParenchyma', label: 'Brain Parenchyma', type: 'select', section: 'Findings', options: [
+                    { label: "Normal", value: "No acute territorial infarct, acute intracranial hemorrhage, or mass effect." },
+                    { label: "Mild Microvascular", value: "Mild chronic microvascular ischemic changes. No acute territorial infarct, acute intracranial hemorrhage, or mass effect." },
+                    { label: "Moderate Microvascular", value: "Moderate chronic microvascular ischemic changes. No acute territorial infarct, acute intracranial hemorrhage, or mass effect." },
+                    { label: "Severe Microvascular", value: "Severe chronic microvascular ischemic disease. No acute territorial infarct, acute intracranial hemorrhage, or mass effect." },
+                    { label: "Atrophy", value: "Generalized cerebral volume loss. No acute territorial infarct, acute intracranial hemorrhage, or mass effect." },
+                    { label: "Microvascular & Atrophy", value: "Generalized cerebral volume loss and chronic microvascular ischemic changes. No acute territorial infarct, acute intracranial hemorrhage, or mass effect." }
+                ]},
+                { id: 'ventricles', label: 'Ventricles & Extra-axial Spaces', type: 'select', section: 'Findings', options: [
+                    { label: "Normal", value: "No hydrocephalus, midline shift, or herniation. The basal cisterns are patent. No abnormal extra-axial fluid collection." },
+                    { label: "Atrophy & Athero", value: "Ventricles and sulci are prominent consistent with cerebral volume loss. No hydrocephalus, midline shift, or herniation. No abnormal extra-axial fluid collection. There are atherosclerotic calcifications at the skull base." },
+                    { label: "Atrophy Only", value: "Ventricles and sulci are prominent consistent with cerebral volume loss. No hydrocephalus, midline shift, or herniation. No abnormal extra-axial fluid collection." },
+                    { label: "Athero Only", value: "No hydrocephalus, midline shift, or herniation. The basal cisterns are patent. No abnormal extra-axial fluid collection. There are atherosclerotic calcifications at the skull base." },
+                    { label: "Shunt", value: "A right frontal ventricular shunt is in place. The distal tip is positioned in the right lateral ventricle. The ventricles are stable in size compared to the most recent prior. There are no subdural collections." }
+                ]},
+                { id: 'orbits', label: 'Orbits', type: 'select', section: 'Findings', options: ORBITS_OPTS },
+                { id: 'extracranial', label: 'Extracranial Structures', type: 'select', section: 'Findings', options: EXTRACRANIAL_OPTS },
+                { id: 'impression', label: 'Final Impression', type: 'select', section: 'Impression', options: [
+                    { label: "Normal", value: "Normal head CT." },
+                    { label: "No Acute Findings", value: "No acute intracranial findings." },
+                    { label: "No Trauma", value: "No acute traumatic intracranial findings. No acute intracranial hemorrhage or calvarial fracture." },
+                    { label: "No Stroke", value: "No acute infarct, acute intracranial hemorrhage, or mass lesion." }
+                ]}
+            ],
+            generateFn: (vals) => {
+                const today = new Date().toLocaleDateString();
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: CT of the head was performed without the administration of intravenous contrast. Multiplanar reformatted images (axial, sagittal, and coronal planes) were reviewed.
+
+COMPARISON: ${highlight(vals.comparison || "None.")}
+
+FINDINGS:
+
+BRAIN PARENCHYMA: ${highlight(vals.brainParenchyma)}
+
+VENTRICLES/EXTRA-AXIAL SPACES: ${highlight(vals.ventricles)}
+
+ORBITS: ${highlight(vals.orbits)}
+
+EXTRACRANIAL STRUCTURES: ${highlight(vals.extracranial)}
+
+IMPRESSION: 
+${highlight(vals.impression)}
+
+The examination was reviewed at ${highlight(today)} by [Creator Name].`;
+            }
+        };
+
+        const mraData = {
+            id: 'mra',
+            title: 'Neuro MRA Head',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Headache, screening' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'anterior', label: 'Anterior Circulation', type: 'textarea', section: 'Findings', defaultValue: "No stenosis, occlusion, or aneurysm." },
+                { id: 'posterior', label: 'Posterior Circulation', type: 'select', section: 'Findings', options: [
+                    { label: "Normal", value: "No stenosis, occlusion, or aneurysm." },
+                    { label: "Hypoplastic Right Vert", value: "No stenosis, occlusion, or aneurysm. Hypoplastic right vertebral artery." },
+                    { label: "Hypoplastic Left Vert", value: "No stenosis, occlusion, or aneurysm. Hypoplastic left vertebral artery." }
+                ]},
+                { id: 'cow', label: 'Circle of Willis', type: 'select', section: 'Findings', options: [
+                    { label: "Complete", value: "Complete" },
+                    { label: "Dominant Right A1", value: "Dominant right A1 with hypoplastic contralateral A1." },
+                    { label: "Dominant Left A1", value: "Dominant left A1 with hypoplastic contralateral A1." },
+                    { label: "Fetal Right PCA", value: "Fetal disposition of the right PCA." },
+                    { label: "Fetal Left PCA", value: "Fetal disposition of the left PCA." },
+                    { label: "Fetal Bilateral PCA", value: "Fetal disposition of the bilateral PCA's" }
+                ]},
+                { id: 'malformation', label: 'Vascular Malformation', type: 'textarea', section: 'Findings', defaultValue: "None." },
+                { id: 'impression', label: 'Impression', type: 'textarea', section: 'Impression', defaultValue: "Normal MRA of the head." }
+            ],
+            generateFn: (vals) => {
+                 return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: MRA of the head was performed without intravenous contrast utilizing 3-D time-of-flight technique.
+
+COMPARISON: ${highlight(vals.comparison || "None.")}
+
+FINDINGS:
+
+ANTERIOR CIRCULATION: ${highlight(vals.anterior)}
+
+POSTERIOR CIRCULATION: ${highlight(vals.posterior)}
+
+CIRCLE OF WILLIS: ${highlight(vals.cow)}
+
+VASCULAR MALFORMATION: ${highlight(vals.malformation)}
+
+IMPRESSION:
+${highlight(vals.impression)}`;
+            }
+        };
+
+        const lumbarMinusData = {
+            id: 'lumbar_minus',
+            title: 'Neuro MRI Lumbar Spine-',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Radiculopathy' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'alignment', label: 'Alignment', type: 'textarea', section: 'Findings', defaultValue: "Normal." },
+                { id: 'vertebrae', label: 'Vertebrae', type: 'textarea', section: 'Findings', defaultValue: "Vertebral body height is normal. Marrow signal is within normal limits." },
+                { id: 'conus_level', label: 'Conus Termination Level', type: 'text', section: 'Findings', placeholder: 'e.g., L1' },
+                { id: 'cauda', label: 'Cauda Equina', type: 'textarea', section: 'Findings', defaultValue: "The conus and cauda equina appear normal." },
+                { id: 'soft_tissues', label: 'Paraspinal Soft Tissues', type: 'textarea', section: 'Findings', defaultValue: "Unremarkable." },
+                { id: 'discs', label: 'Discs General', type: 'select', section: 'Findings', options: [
+                    { label: "Normal", value: "Normal" },
+                    { label: "Desiccation", value: "Multilevel disc desiccation." },
+                    { label: "Mild Height Loss", value: "Mild multilevel disc height loss." },
+                    { label: "Modic 1", value: "Modic type 1 degenerative endplate edema." },
+                    { label: "Modic 2", value: "Modic type 2 fatty endplate degenerative changes." }
+                ]},
+                ...['L1-2', 'L2-3', 'L3-4', 'L4-5', 'L5-S1'].map(level => ({
+                    id: level, label: `${level}`, type: 'select', section: 'Evaluation of Individual Levels', options: [
+                        { label: "Normal", value: "No spinal canal or foraminal stenosis." },
+                        { label: "Mild Bulge", value: "Mild disc bulge without spinal canal or foraminal stenosis." },
+                        { label: "Mild Facet Deg", value: "Mild facet hypertrophy without spinal canal or foraminal stenosis." },
+                        { label: "Mixed", value: "Mild disc bulge and facet hypertrophy without spinal canal or foraminal stenosis." }
+                    ]
+                })),
+                { id: 'sacrum', label: 'Upper Sacrum/SI Joints', type: 'select', section: 'Findings', options: [
+                    { label: "Unremarkable", value: "Unremarkable." },
+                    { label: "Mild Degenerative", value: "Mild degenerative changes of the sacroiliac joints." }
+                ]},
+                { id: 'impression', label: 'Impression', type: 'textarea', section: 'Impression', defaultValue: "" }
+            ],
+            generateFn: (vals) => {
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: Multiplanar, multisequence MRI of the lumbar spine was performed without the administration of intravenous contrast.
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+ALIGNMENT: ${highlight(vals.alignment)}
+
+VERTEBRAE: ${highlight(vals.vertebrae)}
+
+CONUS MEDULLARIS AND CAUDA EQUINA: The conus terminates at ${highlight(vals.conus_level || "__")}. ${highlight(vals.cauda)}
+
+PARASPINAL SOFT TISSUES: ${highlight(vals.soft_tissues)}
+
+DISCS: ${highlight(vals.discs)}
+
+EVALUATION OF INDIVIDUAL LEVELS:
+
+L1-2: ${highlight(vals['L1-2'])}
+
+L2-3: ${highlight(vals['L2-3'])}
+
+L3-4: ${highlight(vals['L3-4'])}
+
+L4-5: ${highlight(vals['L4-5'])}
+
+L5-S1: ${highlight(vals['L5-S1'])}
+
+UPPER SACRUM/SI JOINTS: ${highlight(vals.sacrum)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        // 8. Thoracic-
+        const thoracicMinusData = {
+            id: 'thoracic_minus',
+            title: 'Neuro MRI Thoracic-',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Back pain' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'alignment', label: 'Alignment', type: 'textarea', section: 'Findings', defaultValue: "Normal." },
+                { id: 'vertebrae', label: 'Vertebrae', type: 'textarea', section: 'Findings', defaultValue: "Vertebral body height is normal. Marrow signal is within normal limits." },
+                { id: 'cord', label: 'Spinal Cord', type: 'textarea', section: 'Findings', defaultValue: "No intrinsic spinal cord signal abnormality." },
+                { id: 'level', label: 'Conus Level', type: 'text', section: 'Findings', placeholder: 'e.g., L1' },
+                { id: 'soft_tissues', label: 'Soft Tissues', type: 'textarea', section: 'Findings', defaultValue: "Unremarkable." },
+                { id: 'levels', label: 'Levels', type: 'textarea', section: 'Findings', defaultValue: "No spinal canal or foraminal stenosis at any thoracic level." },
+                { id: 'impression', label: 'Impression', type: 'textarea', section: 'Impression', defaultValue: "" }
+            ],
+            generateFn: (vals) => {
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: Multiplanar, multisequence MRI of the thoracic spine was obtained without intravenous contrast.
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+ALIGNMENT: ${highlight(vals.alignment)}
+
+VERTEBRAE: ${highlight(vals.vertebrae)}
+
+SPINAL CORD: ${highlight(vals.cord)} The conus terminates at ${highlight(vals.level || "__")}.
+
+SOFT TISSUES: ${highlight(vals.soft_tissues)}
+
+LEVELS:
+
+${highlight(vals.levels)}
+
+IMPRESSION:
+${highlight(vals.impression)}`;
+            }
+        };
+
+        // 9. Total Spine+ (General)
+        const totalPlusData = {
+            id: 'total_plus',
+            title: 'MRI Total Spine+ (core)',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', placeholder: 'e.g., Screening' },
+                { id: 'contrastAgent', label: 'Contrast Agent', type: 'text', section: 'Technique & Contrast', placeholder: 'e.g., Gadavist' },
+                { id: 'contrastQty', label: 'Quantity (ml)', type: 'number', section: 'Technique & Contrast', placeholder: 'e.g., 15' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'alignment', label: 'Alignment', type: 'textarea', section: 'Findings', defaultValue: "Normal." },
+                { id: 'vertebrae', label: 'Vertebrae', type: 'textarea', section: 'Findings', defaultValue: "Vertebral body height is normal. Marrow signal is within normal limits." },
+                { id: 'cord', label: 'Cord/Canal', type: 'textarea', section: 'Findings', defaultValue: "No masses or abnormal intrathecal enhancement. No intrinsic spinal cord signal abnormality." },
+                { id: 'level', label: 'Conus Level', type: 'text', section: 'Findings', placeholder: 'e.g., L1' },
+                { id: 'cauda', label: 'Cauda Equina', type: 'textarea', section: 'Findings', defaultValue: "The cauda equina appears normal." },
+                { id: 'soft_tissues', label: 'Paraspinal Soft Tissues', type: 'textarea', section: 'Findings', defaultValue: "Unremarkable." },
+                
+                // Levels
+                { id: 'cervical', label: 'Cervical Spine', type: 'select', section: 'Levels', options: [
+                    { label: "Normal", value: "No spinal canal or foraminal stenosis at any cervical level." },
+                    { label: "Mild Degenerative", value: "Mild multilevel degenerative changes without high-grade spinal canal stenosis at any cervical level." },
+                    { label: "Detailed Normal", value: CERVICAL_DETAILED }
+                ]},
+                { id: 'thoracic', label: 'Thoracic Spine', type: 'textarea', section: 'Levels', defaultValue: "No spinal canal or foraminal stenosis at any thoracic level." },
+                { id: 'lumbar', label: 'Lumbar Spine', type: 'select', section: 'Levels', options: [
+                    { label: "Normal", value: "No spinal canal or foraminal stenosis at any lumbar level." },
+                    { label: "Mild Degenerative", value: "Mild multilevel degenerative changes without high-grade spinal canal stenosis at any lumbar level." },
+                    { label: "Detailed Normal", value: LUMBAR_DETAILED }
+                ]},
+                
+                { id: 'impression', label: 'Impression', type: 'textarea', section: 'Impression', defaultValue: "" }
+            ],
+            generateFn: (vals) => {
+                let tech = "Multi-planar multi-sequential MR imaging of the total spine was performed before and after the intravenous administration of contrast.";
+                if(vals.contrastQty || vals.contrastAgent) {
+                    tech += ` ${highlight(vals.contrastQty || "__")} ml of ${highlight(vals.contrastAgent || "__")} was administered intravenously.`;
+                }
+
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "___")}
+
+TECHNIQUE: ${tech}
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+ALIGNMENT: ${highlight(vals.alignment)}
+
+VERTEBRAE: ${highlight(vals.vertebrae)}
+
+SPINAL CANAL/SPINAL CORD: ${highlight(vals.cord)} The conus terminates at ${highlight(vals.level || "__")}. ${highlight(vals.cauda)}
+
+PARASPINAL SOFT TISSUES: ${highlight(vals.soft_tissues)}
+
+LEVELS:
+
+${highlight(vals.cervical)}
+
+${highlight(vals.thoracic)}
+
+${highlight(vals.lumbar)}
+
+PARAVERTEBRAL SOFT TISSUES: ${highlight(vals.soft_tissues)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        // 10. Total Spine+ (CSF Leak)
+        const totalCsfData = {
+            id: 'total_csf',
+            title: 'MRI Total Spine+ (CSF Leak)',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', defaultValue: "Evaluate for CSF leak." },
+                { id: 'contrastAgent', label: 'Contrast Agent', type: 'text', section: 'Technique & Contrast', placeholder: 'e.g., Gadavist' },
+                { id: 'contrastQty', label: 'Quantity (ml)', type: 'number', section: 'Technique & Contrast', placeholder: 'e.g., 15' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'alignment', label: 'Alignment', type: 'textarea', section: 'Findings', defaultValue: "Normal." },
+                { id: 'vertebrae', label: 'Vertebrae', type: 'textarea', section: 'Findings', defaultValue: "Vertebral body height is normal. Marrow signal is within normal limits." },
+                { id: 'cord', label: 'Spinal Cord', type: 'textarea', section: 'Findings', defaultValue: "No masses or abnormal intrathecal enhancement. Normal spinal cord, conus, and cauda equina." },
+                { id: 'levels', label: 'Levels', type: 'select', section: 'Findings', options: [
+                    { label: "Normal", value: SPINE_LEVELS_NORMAL },
+                    { label: "Show Spine Levels", value: `${CERVICAL_DETAILED}\n\n${THORACIC_DETAILED}\n\n${LUMBAR_DETAILED}` },
+                    { label: "Mild Degen", value: SPINE_LEVELS_MILD }
+                ]},
+                { id: 'soft_tissues', label: 'Paravertebral Soft Tissues', type: 'textarea', section: 'Findings', defaultValue: "Unremarkable." },
+                { id: 'impression', label: 'Impression', type: 'textarea', section: 'Impression', defaultValue: "No direct or indirect findings of a spinal CSF leak." }
+            ],
+            generateFn: (vals) => {
+                let tech = "Multi-planar multi-sequential MR imaging of the total spine was performed before and after the intravenous administration of contrast.";
+                if(vals.contrastQty || vals.contrastAgent) {
+                    tech += ` ${highlight(vals.contrastQty || "__")} ml of ${highlight(vals.contrastAgent || "__")} was administered intravenously.`;
+                }
+                tech += " CSF leak protocol.";
+
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "Evaluate for CSF leak.")}
+
+TECHNIQUE: ${tech}
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+There are no ventral or dorsal epidural fluid collections. There are no enlarged perineural root sleeve cysts.
+
+ALIGNMENT: ${highlight(vals.alignment)}
+
+VERTEBRAE: ${highlight(vals.vertebrae)}
+
+SPINAL CORD: ${highlight(vals.cord)}
+
+LEVELS:
+
+${highlight(vals.levels)}
+
+PARAVERTEBRAL SOFT TISSUES: ${highlight(vals.soft_tissues)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        // 11. Total Spine+ (Drop Mets)
+        const totalMetsData = {
+            id: 'total_mets',
+            title: 'MRI Total Spine+ (Drop mets)',
+            inputs: [
+                { id: 'clinInd', label: 'Clinical Indication', type: 'textarea', section: 'Clinical Information', defaultValue: "Evaluate for drop metastases." },
+                { id: 'contrastAgent', label: 'Contrast Agent', type: 'text', section: 'Technique & Contrast', placeholder: 'e.g., Gadavist' },
+                { id: 'contrastQty', label: 'Quantity (ml)', type: 'number', section: 'Technique & Contrast', placeholder: 'e.g., 15' },
+                { id: 'comparison', label: 'Comparison', type: 'text', section: 'Clinical Information', placeholder: 'e.g., None available' },
+                { id: 'alignment', label: 'Alignment', type: 'textarea', section: 'Findings', defaultValue: "Normal." },
+                { id: 'vertebrae', label: 'Vertebrae', type: 'textarea', section: 'Findings', defaultValue: "Vertebral body height is normal. Marrow signal is within normal limits." },
+                { id: 'canal', label: 'Spinal Canal', type: 'textarea', section: 'Findings', defaultValue: "No masses or abnormal intrathecal enhancement. Normal spinal cord, conus, and cauda equina." },
+                { id: 'levels', label: 'Levels', type: 'select', section: 'Findings', options: [
+                    { label: "Normal", value: SPINE_LEVELS_NORMAL },
+                    { label: "Show Spine Levels", value: `${CERVICAL_DETAILED}\n\n${THORACIC_DETAILED}\n\n${LUMBAR_DETAILED}` },
+                    { label: "Mild Degen", value: SPINE_LEVELS_MILD }
+                ]},
+                { id: 'soft_tissues', label: 'Paravertebral Soft Tissues', type: 'textarea', section: 'Findings', defaultValue: "Unremarkable." },
+                { id: 'impression', label: 'Impression', type: 'textarea', section: 'Impression', defaultValue: "No spinal drop metastases or leptomeningeal disease." }
+            ],
+            generateFn: (vals) => {
+                let tech = "Multi-planar multi-sequential MR imaging of the total spine was performed before and after the intravenous administration of contrast.";
+                if(vals.contrastQty || vals.contrastAgent) {
+                    tech += ` ${highlight(vals.contrastQty || "__")} ml of ${highlight(vals.contrastAgent || "__")} was administered intravenously.`;
+                }
+
+                return `CLINICAL INDICATION: ${highlight(vals.clinInd || "Evaluate for drop metastases.")}
+
+TECHNIQUE: ${tech}
+
+COMPARISON: ${highlight(vals.comparison || "None available.")}
+
+FINDINGS:
+
+ALIGNMENT: ${highlight(vals.alignment)}
+
+VERTEBRAE: ${highlight(vals.vertebrae)}
+
+SPINAL CANAL: ${highlight(vals.canal)}
+
+LEVELS:
+
+${highlight(vals.levels)}
+
+PARAVERTEBRAL SOFT TISSUES: ${highlight(vals.soft_tissues)}
+
+IMPRESSION: 
+${highlight(vals.impression)}`;
+            }
+        };
+
+        const templates = {
+            'mri_plus': mriPlusData,
+            'mri_minus': mriMinusData,
+            'mri_mra_minus': mriMraMinusData,
+            'iac_plus': iacPlusData,
+            'ct': ctData,
+            'mra': mraData,
+            'lumbar_minus': lumbarMinusData,
+            'thoracic_minus': thoracicMinusData,
+            'total_plus': totalPlusData,
+            'total_csf': totalCsfData,
+            'total_mets': totalMetsData
+        };
+
+        // --- APP LOGIC ---
+
+        let currentTemplate = null;
+        let currentValues = {};
+
+        // DOM Elements
+        const landingView = document.getElementById('landingView');
+        const appView = document.getElementById('appView');
+        const controlsContainer = document.getElementById('controlsContainer');
+        const templateTitle = document.getElementById('templateTitle');
+        const reportOutput = document.getElementById('reportOutput');
+
+        function showLanding() {
+            appView.classList.add('hidden');
+            landingView.classList.remove('hidden');
+            currentTemplate = null;
+        }
+
+        function loadTemplate(key) {
+            currentTemplate = templates[key];
+            if(!currentTemplate) return;
+
+            // UI Switch
+            landingView.classList.add('hidden');
+            appView.classList.remove('hidden');
+            
+            // Set Header
+            templateTitle.textContent = currentTemplate.title;
+
+            // Build UI
+            buildControls();
+            
+            // Initial Render
+            updateReport();
+        }
+
+        function buildControls() {
+            controlsContainer.innerHTML = '';
+            currentValues = {};
+            let currentSection = '';
+
+            currentTemplate.inputs.forEach((input, index) => {
+                // Add Section Header if changed
+                if(input.section !== currentSection) {
+                    currentSection = input.section;
+                    const h2 = document.createElement('h2');
+                    h2.className = "text-sm uppercase tracking-wide text-blue-600 font-bold mb-4 border-b pb-1 mt-6 first:mt-0";
+                    h2.textContent = currentSection;
+                    controlsContainer.appendChild(h2);
+                }
+
+                // Wrapper
+                const div = document.createElement('div');
+                div.className = "mb-5";
+
+                // Label
+                const label = document.createElement('label');
+                label.className = "block text-sm font-bold text-gray-800 mb-1";
+                label.textContent = input.label;
+                div.appendChild(label);
+
+                let inputEl;
+
+                if (input.type === 'select') {
+                    inputEl = document.createElement('select');
+                    inputEl.className = "w-full p-2 border border-gray-300 rounded bg-gray-50 text-sm focus:ring-2 focus:ring-blue-500";
+                    input.options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt.value;
+                        option.textContent = opt.label;
+                        inputEl.appendChild(option);
+                    });
+                    
+                    // Add mini preview p tag
+                    const p = document.createElement('p');
+                    p.className = "mt-1 text-xs text-gray-500 italic";
+                    p.id = `preview-${input.id}`;
+                    div.appendChild(p);
+
+                    // Update mini preview on change
+                    inputEl.addEventListener('change', () => {
+                        p.textContent = inputEl.value.substring(0, 100) + (inputEl.value.length > 100 ? '...' : '');
+                    });
+                    
+                    // Initialize value
+                    currentValues[input.id] = input.options[0].value;
+                    p.textContent = input.options[0].value.substring(0, 100) + "...";
+
+                } else if (input.type === 'select_editable') {
+                    // Create a datalist for editable dropdown
+                    inputEl = document.createElement('input');
+                    inputEl.setAttribute('list', `list-${input.id}`);
+                    inputEl.className = "w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm";
+                    inputEl.placeholder = input.placeholder || "";
+                    
+                    const datalist = document.createElement('datalist');
+                    datalist.id = `list-${input.id}`;
+                    input.options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt.value; // In datalist, value is what's inserted
+                        datalist.appendChild(option);
+                    });
+                    div.appendChild(datalist);
+                    
+                    currentValues[input.id] = "";
+
+                } else if (input.type === 'textarea') {
+                    inputEl = document.createElement('textarea');
+                    inputEl.className = "w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm";
+                    inputEl.rows = 2;
+                    if(input.defaultValue) {
+                        inputEl.value = input.defaultValue;
+                        currentValues[input.id] = input.defaultValue;
+                    } else {
+                        currentValues[input.id] = "";
+                    }
+                    inputEl.placeholder = input.placeholder || "";
+
+                } else {
+                    // Text / Number
+                    inputEl = document.createElement('input');
+                    inputEl.type = input.type;
+                    inputEl.className = "w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 text-sm";
+                    inputEl.placeholder = input.placeholder || "";
+                    currentValues[input.id] = "";
+                }
+
+                inputEl.id = `input-${input.id}`;
+                
+                // Add Change Listeners
+                const updateVal = (e) => {
+                    currentValues[input.id] = e.target.value;
+                    updateReport();
+                };
+                
+                inputEl.addEventListener('input', updateVal);
+                inputEl.addEventListener('change', updateVal);
+
+                div.appendChild(inputEl);
+                controlsContainer.appendChild(div);
+            });
+        }
+
+        function highlight(text) {
+            if(!text) return "";
+            // Sanitize simple HTML chars
+            const safeText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            // Also preserve line breaks
+            const formatted = safeText.replace(/\n/g, '<br/>');
+            return `<span class="text-purple-700 font-semibold">${formatted}</span>`;
+        }
+
+        function updateReport() {
+            if(!currentTemplate) return;
+            reportOutput.innerHTML = currentTemplate.generateFn(currentValues);
+        }
+
+        function resetForm() {
+            if(!currentTemplate) return;
+            // Rebuilds entire form controls which resets values to default
+            buildControls(); 
+            updateReport();
+        }
+
+        function copyToClipboard() {
+            const text = reportOutput.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            }).catch(err => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+    </script>
+</body>
+</html>
